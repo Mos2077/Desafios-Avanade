@@ -3,26 +3,27 @@ using System;
 class Personagem
 {
     public string Nome { get; set; }
-    public string Raca { get; set; }
-    public string Classe { get; set; }
-    public int Nivel { get; set; } = 1;
-    public int Vida { get; set; } = 10;
+    public int Mana { get; set; }
 
-    public Personagem(string nome, string raca, string classe)
+    public Personagem(string nome, int mana)
     {
         Nome = nome;
-        Raca = raca;
-        Classe = classe;
+        Mana = mana;
+    }
+}
+
+class Subclasse : Personagem
+{
+    public int DanoBase { get; set; }
+
+    public Subclasse(string nome, int mana, int danoBase) : base(nome, mana)
+    {
+        DanoBase = danoBase;
     }
 
-
-    public void ExibirStatus()
+    public void CalcularDano()
     {
-        Console.WriteLine("Nome:" + Nome);
-        Console.WriteLine("Raça:" + Raca);
-        Console.WriteLine("Classe:" + Classe);
-        Console.WriteLine("Nível:" + Nivel);
-        Console.WriteLine("Vida:" + Vida);
+        Console.WriteLine(Nome + " atacou e causou " + DanoBase * Mana + " de dano!");
     }
 }
 
@@ -30,13 +31,12 @@ class Program
 {
     static void Main()
     {
-        string nome = Console.ReadLine();
-        string raca = Console.ReadLine();
-        string classe = Console.ReadLine();
-        
-        Personagem personagem = new Personagem(nome, raca, classe);
-        
-        Console.WriteLine("Status:");
-        personagem.ExibirStatus();
+       string nome = Console.ReadLine();
+       int mana = int.Parse(Console.ReadLine());
+       int danoBase = int.Parse(Console.ReadLine());
+       
+       Subclasse personagem = new Subclasse(nome, mana, danoBase);
+       
+       personagem.CalcularDano();
     }
 }
